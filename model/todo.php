@@ -12,10 +12,14 @@ class Todo {
             exit($e->getMessage());
         }
     }
-    public function findByQuery($query) {
-        $statement = $this->db->prepare($query);
+    public function findByQuery($sql) {
+        $statement = $this->db->prepare($sql);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function writeByQuery($sql) {
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
     }
 
 }
