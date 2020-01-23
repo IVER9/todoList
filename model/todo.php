@@ -1,6 +1,5 @@
 <?php
-
-require('./config/database.php');
+require('../config/database.php');
 
 class Todo {
     private $db;
@@ -17,10 +16,20 @@ class Todo {
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function writeByQuery($sql) {
+    public function save($param1, $param2) {
+        $sql = "INSERT INTO todo (title, detail, status, created_at) VALUES ('$param1', '$param2', '0', NOW())";
         $statement = $this->db->prepare($sql);
-        $statement->execute();
+        return $statement->execute();
     }
-
+    public function deleted($id) {
+        $sql = "DELETE FROM todo WHERE (id = '$id')";
+        $statement = $this->db->prepare($sql);
+        return $statement->execute();
+    }
+    public function completion($id, $status) {
+        $sql = "UPDATE todo SET status = '$status' WHERE (id= '$id')";
+        $statement = $this->db->prepare($sql);
+        return $statement->execute();
+    }
 }
  ?>
