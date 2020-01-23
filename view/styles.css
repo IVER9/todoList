@@ -1,0 +1,48 @@
+table {
+	border-collapse: collapse ;
+}
+table td, th, tr{
+    border: 1px #2b2b2b solid;
+    padding-left:10px;
+    padding-right:10px;
+}
+.index {
+    background: maroon;
+    color:white;
+}
+.error {
+    color: red;
+}
+.button{
+  display: inline-block;
+  height: 35px;
+  width: 120px;
+  text-decoration: none;
+  background: skyblue;
+  color: #fff;
+  line-height: 37px;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: 1px 2px 4px black;
+}
+.button:active{  /* クリック時の設定 */
+    -ms-transform: translateY(2px);
+    -webkit-transform: translateY(2px);
+    transform: translateY(2px);
+    box-shadow:none;
+}
+.button {
+    border:none;
+}
+.status{
+    background: blue;
+    color:white;
+    border-radius: 3px;
+}
+.delete{
+    background: tomato;
+    color:white;
+}
+p {
+    margin: 0px auto;
+}
