@@ -46,3 +46,9 @@ table td, th, tr{
 p {
     margin: 0px auto;
 }
+a {
+	text-decoration:none;
+	background: tomato;
+	color:white;
+	border-radius: 3px;
+}

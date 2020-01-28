@@ -10,29 +10,32 @@ class TodoController {
         $title = $_POST["title"];
         $detail = $_POST["detail"];
         $todoData = new Todo();
-        return $todoData->save($title, $detail);
+        $todoData->setTitle($title);
+        $todoData->setDetail($detail);
+        $todoData->save();
+        header('Location: index.php');
     }
     public function delete() {
-        $id = $_POST["id"];
+        $id = $_GET['id'];
         $todoData = new Todo();
-        return $todoData->deleted($id);
+        $todoData->setId($id);
+        $todoData->deleted();
+        header('Location: index.php');
     }
     public function done() {
-        $done_id = $_POST['status'];
-        $sql = "SELECT * FROM todo WHERE id = '$done_id'";
-        $todoData = new Todo();
-        $todos = $todoData->findByQuery($sql);
-        foreach ($todos as $todo) {
-        }
-        $id = $todo['id'];
-        $status = $todo['status'];
+        $id = $_GET['id'];
+        $status = $_GET['status'];
         if ($status === "0") {
             $done_status = "1";
         }
         if ($status === "1") {
             $done_status = "0";
         }
-        return $todoData->completion($id, $done_status);
+        $todoData = new Todo();
+        $todoData->setId($id);
+        $todoData->setStatus($done_status);
+        $todoData->completion();
+        header('Location: index.php');
     }
 }
  ?>

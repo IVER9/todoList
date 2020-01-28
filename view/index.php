@@ -1,22 +1,18 @@
 <?php
 require('../controller/todoController.php');
 
-$todoDate = new TodoController();
-$todos = $todoDate->index();
-if (isset($_POST["id"])) {
+if (isset($_GET['action'])) {
     $todoData = new TodoController();
-    $result = $todoData->delete();
-    if (!$result) {
-        echo '削除に失敗しました。';
+    if ($_GET['action'] === 'delete') {
+        $todoData->delete();
+    }
+    if ($_GET['action'] === 'edit') {
+            $todoData->done();
     }
 }
-if (isset($_POST["status"])) {
-        $todoData = new TodoController();
-        $result = $todoData->done();
-        if (!$result) {
-            echo '更新に失敗しました。';
-        }
-    }
+
+$todoData = new TodoController();
+$todos = $todoData->index();
 ?>
 
 <!DOCTYPE html>
@@ -45,21 +41,17 @@ if (isset($_POST["status"])) {
                         <?php echo $todo["title"] . PHP_EOL;?>
                     </td>
                     <td>
-                        <form class="status" action="input.php" method="post">
-                            <?php if ($todo['status'] === '0'):?>
-                                <button class="status" type="summit" name="status" value=<?php echo $todo['id'] ?>>作業中</button>
-                            <?php elseif ($todo['status'] === '1'):?>
-                                <button class="status" type="summit" name="status"  value=<?php echo $todo['id'] ?>>完　了</button>
-                            <?php endif ?>
-                        <form>
+                        <?php if ($todo['status'] === '0'):?>
+                            <a href="index.php?action=edit&id=<?php echo $todo['id'] ?>&status=<?php echo $todo['status'] ?>">作業中</a>
+                        <?php elseif ($todo['status'] === '1'):?>
+                            <a href="index.php?action=edit&id=<?php echo $todo['id'] ?>&status=<?php echo $todo['status'] ?>">完　了</a>
+                        <?php endif ?>
                     </td>
                     <td>
                         <?php echo $todo['created_at'] . PHP_EOL;?>
                     </td>
                     <td>
-                        <form class="delete" action="input.php" method="post">
-                            <button class="delete" type="submit" name="id" value=<?php echo $todo['id'] ?>>削除</button>
-                        </form>
+                        <a href="input.php?action=delete&id=<?php echo $todo['id'] ?>">削除</a>
                     </td>
                 </tr>
             <?php endforeach ?>
