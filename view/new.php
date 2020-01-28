@@ -15,10 +15,7 @@ if (isset($_POST["submit"])) {
     }
     if (!$errors) {
         $todoData = new TodoController();
-        $result = $todoData->new();
-        if (!$result) {
-            $errors['save'] = '保存に失敗しました';
-        }
+        $todoData->new();
     }
 }
  ?>

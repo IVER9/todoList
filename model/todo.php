@@ -3,6 +3,11 @@ require('../config/database.php');
 
 class Todo {
     private $db;
+    private $id;
+    private $title;
+    private $detail;
+    private $status;
+
 
     public function __construct() {
         try {
@@ -11,25 +16,50 @@ class Todo {
             exit($e->getMessage());
         }
     }
+    public function setId($id) {
+        $this->id = $id;
+    }
+    public function getId() {
+        return $this->id;
+    }
+    public function setTitle($title) {
+        $this->title = $title;
+    }
+    public function getTitle() {
+        return $this->title;
+    }
+    public function setDetail($detail) {
+        $this->detail = $detail;
+    }
+    public function getDetail() {
+        return $this->detail;
+    }
+    public function setStatus($status) {
+        $this->status = $status;
+    }
+    public function getStatus() {
+        return $this->status;
+    }
+
     public function findByQuery($sql) {
         $statement = $this->db->prepare($sql);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function save($param1, $param2) {
-        $sql = "INSERT INTO todo (title, detail, status, created_at) VALUES ('$param1', '$param2', '0', NOW())";
+    public function save() {
+        $sql = "INSERT INTO todo (title, detail, status, created_at) VALUES ('$this->title', '$this->detail', '0', NOW())";
         $statement = $this->db->prepare($sql);
-        return $statement->execute();
+        $statement->execute();
     }
-    public function deleted($id) {
-        $sql = "DELETE FROM todo WHERE (id = '$id')";
+    public function deleted() {
+        $sql = "DELETE FROM todo WHERE (id = $this->id)";
         $statement = $this->db->prepare($sql);
-        return $statement->execute();
+        $statement->execute();
     }
-    public function completion($id, $status) {
-        $sql = "UPDATE todo SET status = '$status' WHERE (id= '$id')";
+    public function completion() {
+        $sql = "UPDATE todo SET status = '$this->status' WHERE (id= '$this->id')";
         $statement = $this->db->prepare($sql);
-        return $statement->execute();
+        $statement->execute();
     }
 }
  ?>
