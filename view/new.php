@@ -1,23 +1,11 @@
 <?php
 require('../controller/todoController.php');
 
-$errors = array();
+session_start();
+session_destroy();      //一覧表示画面のエラーをリセット
+$todoData = new TodoController();
+$errors = $todoData->new();
 
-if (isset($_POST["submit"])) {
-    $title = $_POST["title"];
-    $detail = $_POST["detail"];
-
-    if ($title === "") {
-        $errors['title'] = '※タイトルを入力してください';
-    }
-    if ($detail === "") {
-        $errors['detail'] = '※内容を入力してください';
-    }
-    if (!$errors) {
-        $todoData = new TodoController();
-        $todoData->new();
-    }
-}
  ?>
 
 <!DOCTYPE html>

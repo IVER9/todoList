@@ -1,6 +1,6 @@
 <?php
 require('../controller/todoController.php');
-
+session_start();
 if (isset($_GET['action'])) {
     $todoData = new TodoController();
     if ($_GET['action'] === 'delete') {
@@ -24,6 +24,9 @@ $todos = $todoData->index();
     </head>
     <body>
         <h1>todoList</h1>
+        <?php if($_SESSION): ?>
+            <strong class='error'><?php print($_SESSION['error']); ?></strong>
+        <?php endif ?>
         <table>
             <tr class="index">
                 <th>id</th>
@@ -51,7 +54,7 @@ $todos = $todoData->index();
                         <?php echo $todo['created_at'] . PHP_EOL;?>
                     </td>
                     <td>
-                        <a href="input.php?action=delete&id=<?php echo $todo['id'] ?>">削除</a>
+                        <a href="index.php?action=delete&id=<?php echo $todo['id'] ?>">削除</a>
                     </td>
                 </tr>
             <?php endforeach ?>
