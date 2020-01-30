@@ -8,10 +8,10 @@ class Todo {
     private $detail;
     private $status;
 
-
     public function __construct() {
         try {
             $this->db = new PDO(DSN, USERNAME, PASSWORD);
+            $this->db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
