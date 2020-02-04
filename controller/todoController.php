@@ -1,5 +1,6 @@
 <?php
 require('../model/todo.php');
+require('../validation/validation.php');
 
 class TodoController {
 
@@ -9,39 +10,33 @@ class TodoController {
             $todoData = new Todo();
             return $todoData -> findByQuery($sql);
         } catch (\Exception $e) {
-            $_SESSION['error'] =  "※データの取得に失敗しました";
+            $_SESSION['index_error'] =  "※データの取得に失敗しました";
         }
     }
     public function new() {
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
             return;
         }
-        session_start();
         $errors = array();
         $title = $_POST["title"];
         $detail = $_POST["detail"];
-        if ($title === "") {
-            $errors['title'] = '※タイトルを入力してください';
+        $params = array('title'=>$title, 'detail'=>$detail);
+        $validation = new Validation($params);
+        $result = $validation->validation();            //入力値のバリデーションチェック
+        if ($result) {                                  //エラーがあるなら場合
+            $msgs = $validation->getErrorsMessage();
+            $_SESSION['errors'] = $msgs;
+            return;
         }
-        if (20 < mb_strlen($_POST['title'])) {
-            $errors['title'] = '※20文字以内で入力してください';
-        }
-        if ($detail === "") {
-            $errors['detail'] = '※内容を入力してください';
-        }
-        if (80 < mb_strlen($_POST['detail'])) {
-            $errors['detail'] = '※80文字以内で入力してください';
-        }
-        if ($errors) {
-            return $errors;
-        }
+        $checked_params = $validation->getParams();     //バリデーションチェックされた値をかえす
         try {
             $todoData = new Todo();
-            $todoData->setTitle($title);
-            $todoData->setDetail($detail);
+            $todoData->setTitle($checked_params['title']);      //チェックされた値をセット
+            $todoData->setDetail($checked_params['detail']);
             $todoData->save();
         } catch (\Exception $e) {
-            $_SESSION['error'] =  "※新規作成できませんでした";
+            session_start();
+            $_SESSION['index_error'] =  "※新規作成できませんでした";
         }
         header('Location: index.php');
     }
@@ -49,10 +44,15 @@ class TodoController {
         $id = $_GET['id'];
         try {
             $todoData = new Todo();
-            $todoData->setId($id);
-            $todoData->deleted();
+            $check_id = $todoData->checkId($id);        //リクエストされたIDが存在するかチェック
+            if (!$check_id) {
+                $_SESSION['index.error'] = 'データはありません';
+                header('Location: index.php');
+            }
+            $todoData->setId($check_id);
+            $todoData->delete();
         } catch (\Exception $e) {
-            $_SESSION['error'] = "※削除できません";
+            $_SESSION['index_error'] = "※削除できませんでした";
         }
         header('Location: index.php');
     }
@@ -68,13 +68,19 @@ class TodoController {
         }
         try {
             $todoData = new Todo();
-            $todoData->setId($id);
+            $check_id = $todoData->checkId($id);        //リクエストされたIDが存在するかチェック
+            if (!$check_id) {
+                $_SESSION['index.error'] = 'データはありません';
+                header('Location: index.php');
+            }
+            $todoData->setId($check_id);
             $todoData->setStatus($done_status);
             $todoData->completion();
         } catch (\Exception $e) {
-            $_SESSION['error'] = "※更新できません";
+            $_SESSION['index_error'] = "※更新できません";
         }
         header('Location: index.php');
     }
+
 }
  ?>
