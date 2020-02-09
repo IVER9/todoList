@@ -60,6 +60,6 @@ $todos = $todoData->index();
                 </tr>
             <?php endforeach ?>
         </table><br>
-        <a class="button" href="new.php">新規作成</a>
+        <a class="button" href="new.php">新規作成</a><a class="button" href="login.php">ログアウト</a>
     </body>
 </html>

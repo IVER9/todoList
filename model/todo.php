@@ -7,6 +7,8 @@ class Todo {
     private $title;
     private $detail;
     private $status;
+    private $name;
+    private $password;
 
     public function __construct() {
         try {
@@ -51,6 +53,18 @@ class Todo {
     public function getStatus() {
         return $this->status;
     }
+    public function setName($name) {
+        $this->name = $name;
+    }
+    public function getName() {
+        return $this->name;
+    }
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+    public function getPassword() {
+        return $this->password;
+    }
     public function findByQuery($sql) {
         $this->db->beginTransaction();
         $statement = $this->db->prepare($sql);
@@ -78,6 +92,18 @@ class Todo {
         $statement = $this->db->prepare($sql);
         $statement->execute();
         $this->db->commit();
+    }
+    public function registration() {
+        $this->db->beginTransaction();
+        $sql = "INSERT INTO user (name, password, created_at) VALUES ('$this->name', '$this->password', NOW())";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $this->db->commit();
+    }
+    public function checkUser() {
+        $sql = "SELECT * FROM user WHERE name='$this->name' AND password='$this->password'";
+        $user = $this->findByQuery($sql);
+        return $user;
     }
 }
  ?>

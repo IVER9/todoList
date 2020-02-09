@@ -1,6 +1,6 @@
 <?php
 
-class Validation {
+class WritingValidation {
     private $errors;
     private $params;
 
@@ -30,7 +30,7 @@ class Validation {
     public function getParams() {
         return $this->params;
     }
-    
+
 }
 
  ?>
