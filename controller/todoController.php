@@ -1,6 +1,6 @@
 <?php
 require('../model/todo.php');
-require('../validation/validation.php');
+require('../validation/writing_validation.php');
 
 class TodoController {
 
@@ -21,7 +21,7 @@ class TodoController {
         $title = $_POST["title"];
         $detail = $_POST["detail"];
         $params = array('title'=>$title, 'detail'=>$detail);
-        $validation = new Validation($params);
+        $validation = new WritingValidation($params);
         $result = $validation->validation();            //入力値のバリデーションチェック
         if ($result) {                                  //エラーがあるなら場合
             $msgs = $validation->getErrorsMessage();
