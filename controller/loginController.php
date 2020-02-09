@@ -29,8 +29,6 @@ class LoginController {
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
-
-
     }
 }
  ?>
