@@ -49,6 +49,8 @@ class LoginController {
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
+      
+
     }
     private function logout() {
         if ($_REQUEST['action'] === 'logout') {
