@@ -50,7 +50,6 @@ class LoginController {
             echo $e->getMessage();
         }
       
-
     }
     private function logout() {
         if ($_REQUEST['action'] === 'logout') {
