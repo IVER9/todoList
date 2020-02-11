@@ -24,6 +24,16 @@ $todos = $todoData->index();
         <link rel="stylesheet" href="../../css/styles.css">
     </head>
     <body>
+        <script type="text/javascript">
+            function clickEvent() {
+                var result = confirm('削除してもよろしいですか？');
+                if( result ) {
+                    console.log('削除しました');
+                }else {
+                    return false;
+                }
+            }
+        </script>
         <h1>todoList</h1>
         <?php if($_SESSION) : ?>
             <strong class='error'><?php print_r($_SESSION['index_error']); ?></strong>
@@ -55,11 +65,11 @@ $todos = $todoData->index();
                         <?php echo $todo['created_at'] . PHP_EOL;?>
                     </td>
                     <td>
-                        <a href="index.php?action=delete&id=<?php echo $todo['id'] ?>">削除</a>
+                        <a onclick="return clickEvent()" href="index.php?action=delete&id=<?php echo $todo['id'] ?>">削除</a>
                     </td>
                 </tr>
             <?php endforeach ?>
         </table><br>
-        <a class="button" href="new.php">新規作成</a><a class="button" href="login.php?action=logout">ログアウト</a>
+        <a class="button" href="new.php">新規作成</a><a class="button" href="../login/login.php?action=logout">ログアウト</a>
     </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-require('../../../../controller/loginController.php');
+require('../../controller/loginController.php');
 require('../../validation/login_validation.php');
 
 session_start();
@@ -12,7 +12,7 @@ $controller->index();
     <head>
         <meta charset="utf-8">
         <title>login</title>
-        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="../../css/styles.css">
     </head>
     <body>
         <h1>LOGIN</h1><strong class="error"><?php echo $_SESSION['errors']['user'] ?></strong>
