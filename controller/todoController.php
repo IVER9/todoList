@@ -1,6 +1,6 @@
 <?php
-require('../model/todo.php');
-require('../validation/writing_validation.php');
+require('../../model/todo.php');
+require('../../validation/writing_validation.php');
 
 class TodoController {
 
