@@ -1,7 +1,7 @@
 <?php
+require('basic_validation.php');
 
-class LoginValidation {
-    private $errors;
+class LoginValidation extends BasicValidation {
     private $name;
     private $password;
 
@@ -16,9 +16,6 @@ class LoginValidation {
         if ($this->password['password'] === "") {
             $this->errors['password'] =  '※パスワードを入力してください';
         }
-    }
-    public function getErrorsMessage() {
-        return $this->errors;
     }
 }
  ?>
