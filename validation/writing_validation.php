@@ -1,8 +1,7 @@
 <?php
+require('basic_validation.php');
 
-class WritingValidation {
-    private $errors;
-    private $params;
+class WritingValidation extends BasicValidation {
 
     public function __construct($params) {
         $this->params = $params;
@@ -24,13 +23,6 @@ class WritingValidation {
             return $this->errors;
         }
     }
-    public function getErrorsMessage() {
-        return $this->errors;
-    }
-    public function getParams() {
-        return $this->params;
-    }
-
 }
 
  ?>
