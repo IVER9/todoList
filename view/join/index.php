@@ -8,7 +8,7 @@ if (!empty($_POST)) {
     $_SESSION['error'] = $validation->getErrorsMessage();
     if (empty($_SESSION['error'])) {
         $_SESSION['join'] = $_POST;
-        header('Location: check.php');
+        header('Location: confirm.php');
     }
 }
 

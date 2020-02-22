@@ -14,7 +14,6 @@ if (isset($_GET['action'])) {
 
 $todoData = new TodoController();
 $todos = $todoData->index();
-
 ?>
 
 <!DOCTYPE html>

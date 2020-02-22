@@ -28,17 +28,21 @@ class User {
         return $this->password;
     }
 
-    public function all() {
+    public function getAll() {
         $sql = "SELECT * FROM user ";
-        $db = new Todo();
-        $user = $db->findByQuery($sql);
+        $user = $this->db->query($sql);
         return $user;
     }
-    public function checkUser() {
-        $sql = "SELECT * FROM user WHERE name='$this->name' AND password='$this->password'";
-        $db = new Todo();
-        $user = $db->findByQuery($sql);
-        return $user;
+    public static function checkUser($name, $password) {
+        $sql = "SELECT * FROM user WHERE name='$name' AND password='$password'";
+        $db = new PDO(DSN, USERNAME, PASSWORD);
+        $statement = $db->query($sql);
+        $user= $statement->fetch();
+        if (!$user) {
+            return false;
+        }else {
+            return true;
+        }
     }
     public function registration() {
         $this->db->beginTransaction();

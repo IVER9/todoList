@@ -2,8 +2,7 @@
 require('../../controller/userController.php');
 
 $controller = new UserController();
-$list = $controller->list();
-
+$users = $controller->list();
  ?>
 
 <!DOCTYPE html>
@@ -22,19 +21,19 @@ $list = $controller->list();
                 <th>created_at</th>
                 <th>deleted_at</th>
             </tr>
-            <?php  foreach ($list as $users) : ?>
+            <?php  foreach ($users as $user) : ?>
                 <tr>
                     <td>
-                        <?php echo $users['id'] . PHP_EOL;?>
+                        <?php echo $user['id'] . PHP_EOL;?>
                     </td>
                     <td>
-                        <?php echo $users["name"] . PHP_EOL;?>
+                        <?php echo $user["name"] . PHP_EOL;?>
                     </td>
                     <td>
-                        <?php echo $users["created_at"] . PHP_EOL;?>
+                        <?php echo $user["created_at"] . PHP_EOL;?>
                     </td>
                     <td>
-                        <?php echo $todo['deleted_at'] . PHP_EOL;?>
+                        <?php echo $user['deleted_at'] . PHP_EOL;?>
                     </td>
                 </tr>
             <?php endforeach ?>

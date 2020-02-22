@@ -25,17 +25,7 @@ class LoginController {
         }
     }
     private function login() {
-        $name = $_POST['name'];
-        $password = $_POST['password'];
-        try {
-            $db = new User();
-            $db->setName($name);
-            $db->setPassword($password);
-            return $db->checkUser();
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
-
+        return User::checkUser($_POST['name'], $_POST['password']);
     }
     private function logout() {
         if ($_REQUEST['action'] === 'logout') {

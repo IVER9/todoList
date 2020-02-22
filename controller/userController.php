@@ -6,16 +6,16 @@ class UserController {
 
     public function join() {
         try {
-            $db = new User();
-            $db->setName($_SESSION['join']['name']);
-            $db->setPassword($_SESSION['join']['password']);
-            $user = $db->checkUser();
-            if ($user) {
+            $check = User::checkUser($_POST['name'], $_POST['password']);
+            if ($check) {
                 $_SESSION['error']['join'] = '登録済みです';
                 header('Location: ../join/index.php');
                 exit();
             }
-            $db->registration();
+            $user = new User();
+            $user->setName($_POST['name']);
+            $user->setPassword($_POST['password']);
+            $user->registration();
         } catch (\Exception $e) {
             $_SESSION['error'] = '接続エラー';
         }
@@ -23,7 +23,7 @@ class UserController {
     public function list() {
         try {
             $db = new User();
-            return $db->all();
+            return $db->getAll();
         } catch (\Exception $e) {
             $e->getMessage();
         }

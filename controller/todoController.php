@@ -19,6 +19,7 @@ class TodoController {
         }
         $errors = array();
         $title = $_POST["title"];
+        var_dump($title);
         $detail = $_POST["detail"];
         $params = array('title'=>$title, 'detail'=>$detail);
         $validation = new WritingValidation($params);
@@ -38,7 +39,7 @@ class TodoController {
             session_start();
             $_SESSION['index_error'] =  "※新規作成できませんでした";
         }
-        header('Location: index.php');
+        // header('Location: index.php');
     }
     public function delete() {
         $id = $_GET['id'];

@@ -25,12 +25,12 @@ class Todo {
     }
     public function checkId($id){
         $sql = "SELECT * FROM todo WHERE id='$id'";
-        $result = $this->findByQuery($sql);
-        if (!$result) {
+        $todos = $this->findByQuery($sql);
+        if (!$todos) {
             return false;
         }
-        foreach ($result as $value) {
-            return $value['id'];
+        foreach ($todos as $todo) {
+            return $todo['id'];
         }
     }
     public function setTitle($title) {
